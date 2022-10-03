@@ -1,0 +1,134 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_boost/login
+
+    Login page template
+
+    Example context (json):
+    {
+        "output": {
+            "doctype": "<!DOCTYPE html>",
+            "page_title": "Login page",
+            "favicon": "favicon.ico",
+            "main_content": "<h1>Headers keep HTML validators happy</h1>"
+        }
+    }
+}}
+{{> theme_dnsclms/head }}
+
+<body {{{ bodyattributes }}}>
+{{> core/local/toast/wrapper}}
+
+<div id="page-wrapper">
+
+    {{{ output.standard_top_of_body_html }}}
+
+    <div id="page" class="container-fluid mt-0">
+        <div id="page-content" class="row">
+            <div id="region-main-box" class="col-12">
+                <section id="region-main"   aria-label="{{#str}}content{{/str}}">
+                    <div class="container pt-5">
+                        <div class="row">
+                            <div class="col-md-6 mt-6 d-none d-sm-block login-wrapper">
+                                <div class="dnsc-container d-sm-none d-md-block loginform">
+                                    <div id="loginlogo" class="login-logo mb-3">
+                                        <img src="{{config.wwwroot}}/theme/dnsclms/pix/dnsc_logo.png" alt="DNSC Logo" style="height: 145px;">
+                                    </div>
+                                    <h1 class="banner-text">Welcome to <br>Davao del Norte <br>State College</h1> 
+                                    <div class="lms-text d-inline-flex mb-2">
+                                        <h4 class="mb-0 ">LEARNING MANAGEMENT</h4> 
+                                    </div><br>
+                                    <div class="lms-text d-inline-flex">
+                                        <h4 class="mb-0 ">SYSTEM</h4> 
+                                    </div>
+                                </div>
+                            </div>   
+                            <div class="col-md-6 mt-6 mb-6">
+                                <div class="login-wrapper">
+                                    <div class="login-container">
+                                        {{{ output.main_content }}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+    </div>
+    <div class="container d-none d-sm-block course-card pt-4">
+        <div class=" ">
+            <div class="row ">
+                <div class="col-md-2 text-center">
+                    <img src="{{config.wwwroot}}/theme/dnsclms/pix/IADS.svg" alt="DNSC Logo" style="height: 80px;">
+                    <p><small>Institute of Advanced Studies</small></p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <img src="{{config.wwwroot}}/theme/dnsclms/pix/IAAS.svg" alt="DNSC Logo" style="height: 80px;">
+                    <p><small>Institute of Aquatic and Applied Sciences</small></p>
+                </div>
+                <div class="col-md-2 text-center">
+                    <img src="{{config.wwwroot}}/theme/dnsclms/pix/IC.svg" alt="DNSC Logo" style="height: 80px;">
+                    <p><small>Institute of Computing</small></p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <img src="{{config.wwwroot}}/theme/dnsclms/pix/ILEGG.svg" alt="DNSC Logo" style="height: 80px;">
+                    <p><small>Institute of Leadership, Entrepreneurship and Good Governance</small></p>
+                </div>
+                <div class="col-md-2 text-center">
+                    <img src="{{config.wwwroot}}/theme/dnsclms/pix/ITEd.svg" alt="DNSC Logo" style="height: 80px;">
+                    <p><small>Institute of Teacher Education</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{> theme_dnsclms/footer }} 
+    {{{ output.standard_after_main_region_html }}}
+</div>
+<script>
+    function onSuccess(googleUser){
+        console.log(googleUser);
+        console.log(googleUser.getBasicProfile);
+    }
+    function onFailure(error){
+            console.log(error);
+        }
+    function renderButton(){
+        gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+        })
+    }
+</script>
+<script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>
+</body>
+</html>
+
+{{#js}}
+    M.util.js_pending('theme_boost/loader');
+    require(['theme_boost/loader'], function() {
+      M.util.js_complete('theme_boost/loader');
+    });
+{{/js}}
+
